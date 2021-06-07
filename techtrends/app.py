@@ -93,7 +93,8 @@ def metrics():
     result = curzor.fetchone()
     number_posts = result[0]
     app.logger.info("Count of pozts - %s", number_posts)
-    return jsonify(db_connection_count=_count, test=number_posts),200
+    connection.close
+    return jsonify(db_connection_count=_count, post_count=number_posts),200
 
 
 # start the application on port 3111

@@ -5,10 +5,10 @@ docker build -t techtrends -f ./Dockerfile .
 docker run -d -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
-docker logs 252b7a85d690a74a082479a877e015a43cc35716bfed1218f1f9ed4e6e45edef
+docker logs 7d57c30d4250073af08fb2a6250d23b5303ab7402a051c3d9b3387233cae9e7b
 
 ## Logs from the container running the TechTrends application
-C:\udacity\techtrends>docker logs 252b7a85d690a74a082479a877e015a43cc35716bfed1218f1f9ed4e6e45edef
+C:\udacity\techtrends>docker logs 7d
  * Serving Flask app "app" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
@@ -18,10 +18,21 @@ INFO:werkzeug: * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
 INFO:app:Getting DB Connection
 INFO:app:Got DB Connection
 INFO:app:Number of posts 6
-INFO:werkzeug:172.17.0.1 - - [06/Jun/2021 16:33:39] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [06/Jun/2021 16:33:39] "GET /static/css/main.css HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [06/Jun/2021 16:33:39] "GET /favicon.ico HTTP/1.1" 404 -
-INFO:werkzeug:172.17.0.1 - - [06/Jun/2021 16:33:52] "GET /healtz HTTP/1.1" 404 -
-INFO:werkzeug:172.17.0.1 - - [06/Jun/2021 16:33:55] "GET /healthz HTTP/1.1" 200 -
-INFO:app:Count of pozts - 6
-INFO:werkzeug:172.17.0.1 - - [06/Jun/2021 16:35:01] "GET /metrics HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:41:14] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:41:15] "GET /static/css/main.css HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:41:15] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:app:Article '2020 CNCF Annual Report' retrieved
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:42:47] "GET /1 HTTP/1.1" 200 -
+INFO:app:Article 'KubeCon + CloudNativeCon 2021' retrieved
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:42:50] "GET /2 HTTP/1.1" 200 -
+INFO:app:Article 'CNCF Cloud Native Definition v1.0' retrieved
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:42:54] "GET /5 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:43:12] "GET /create HTTP/1.1" 200 -
+INFO:app:A new article 'Oracle Cloud Infrastructure - OCI' created successfully
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:44:59] "POST /create HTTP/1.1" 302 -
+INFO:app:Getting DB Connection
+INFO:app:Got DB Connection
+INFO:app:Number of posts 7
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:44:59] "GET / HTTP/1.1" 200 -
+INFO:app:Count of pozts - 7
+INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:45:21] "GET /metrics HTTP/1.1" 200 -
