@@ -81,8 +81,16 @@ def create():
 #Define the healthz endpoint
 @app.route("/healthz")
 def healthz():
-
-    return jsonify("result","OK - healthy")
+    try:
+        connection = get_db_connection()
+        curzor = connection.cursor()
+        curzor.execute("SELECT count(title) from posts")
+        result = curzor.fetchone()
+        number_posts = result[0]
+        connection.close
+        return jsonify("result","OK - healthy")
+    except Exception:
+        return jsonify("result","ERROR - unhealthy"),500 
 
 #Define the metrics endpoint
 @app.route("/metrics")
