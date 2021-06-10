@@ -20,8 +20,8 @@ spec:
         app: techtrends
     spec:
       containers:
-      - image: srimant/{{Values.image.repository}}:{{Values.image.tag}}
-        imagePullPolicy: {{Values.image.pullPolicy}}
+      - image: srimant/{{.Values.image.repository}}:{{.Values.image.tag}}
+        imagePullPolicy: {{.Values.image.pullPolicy}}
         name: techtrends
         resources:
 {{toYaml .Values.resoures | indent 12}}        
