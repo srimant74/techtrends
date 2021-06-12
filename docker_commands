@@ -8,31 +8,30 @@ docker run -d -p 7111:3111 techtrends
 docker logs 7d57c30d4250073af08fb2a6250d23b5303ab7402a051c3d9b3387233cae9e7b
 
 ## Logs from the container running the TechTrends application
-C:\udacity\techtrends>docker logs 7d
+$ docker logs 9
  * Serving Flask app "app" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
  * Debug mode: off
-INFO:werkzeug: * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
-INFO:app:Getting DB Connection
-INFO:app:Got DB Connection
-INFO:app:Number of posts 6
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:41:14] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:41:15] "GET /static/css/main.css HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:41:15] "GET /favicon.ico HTTP/1.1" 404 -
-INFO:app:Article '2020 CNCF Annual Report' retrieved
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:42:47] "GET /1 HTTP/1.1" 200 -
-INFO:app:Article 'KubeCon + CloudNativeCon 2021' retrieved
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:42:50] "GET /2 HTTP/1.1" 200 -
-INFO:app:Article 'CNCF Cloud Native Definition v1.0' retrieved
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:42:54] "GET /5 HTTP/1.1" 200 -
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:43:12] "GET /create HTTP/1.1" 200 -
-INFO:app:A new article 'Oracle Cloud Infrastructure - OCI' created successfully
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:44:59] "POST /create HTTP/1.1" 302 -
-INFO:app:Getting DB Connection
-INFO:app:Got DB Connection
-INFO:app:Number of posts 7
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:44:59] "GET / HTTP/1.1" 200 -
-INFO:app:Count of pozts - 7
-INFO:werkzeug:172.17.0.1 - - [07/Jun/2021 13:45:21] "GET /metrics HTTP/1.1" 200 -
+ 2021-06-12 16:10:00,241 -  * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
+ 2021-06-12 16:10:33,647 - Getting DB Connection
+ 2021-06-12 16:10:33,679 - Got DB Connection
+ 2021-06-12 16:10:33,679 - Number of posts 6
+ 2021-06-12 16:10:33,693 - 172.17.0.1 - - [12/Jun/2021 16:10:33] "GET / HTTP/1.1" 200 -
+ 2021-06-12 16:10:36,158 - 172.17.0.1 - - [12/Jun/2021 16:10:36] "GET /static/css/main.css HTTP/1.1" 200 -
+ 2021-06-12 16:10:36,170 - 172.17.0.1 - - [12/Jun/2021 16:10:36] "GET /favicon.ico HTTP/1.1" 404 -
+ 2021-06-12 16:11:05,374 - Article '2020 CNCF Annual Report' retrieved
+ 2021-06-12 16:11:05,381 - 172.17.0.1 - - [12/Jun/2021 16:11:05] "GET /1 HTTP/1.1" 200 -
+ 2021-06-12 16:11:07,894 - Article 'KubeCon + CloudNativeCon 2021' retrieved
+ 2021-06-12 16:11:07,895 - 172.17.0.1 - - [12/Jun/2021 16:11:07] "GET /2 HTTP/1.1" 200 -
+ 2021-06-12 16:11:11,008 - The article '8' does not exist
+ 2021-06-12 16:11:11,010 - 172.17.0.1 - - [12/Jun/2021 16:11:11] "GET /8 HTTP/1.1" 404 -
+ 2021-06-12 16:11:33,114 - 172.17.0.1 - - [12/Jun/2021 16:11:33] "GET /healthz HTTP/1.1" 200 -
+ 2021-06-12 16:12:06,107 - 172.17.0.1 - - [12/Jun/2021 16:12:06] "GET /create HTTP/1.1" 200 -
+ 2021-06-12 16:12:13,234 - A new article 'Test' created successfully
+ 2021-06-12 16:12:13,235 - 172.17.0.1 - - [12/Jun/2021 16:12:13] "POST /create HTTP/1.1" 302 -
+ 2021-06-12 16:12:13,246 - Getting DB Connection
+ 2021-06-12 16:12:13,247 - Got DB Connection
+ 2021-06-12 16:12:13,247 - Number of posts 7
+ 2021-06-12 16:12:13,248 - 172.17.0.1 - - [12/Jun/2021 16:12:13] "GET / HTTP/1.1" 200 -

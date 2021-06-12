@@ -1,5 +1,6 @@
 from re import DEBUG
-from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash,jsonify,g
+from flask import Flask, jsonify, json, render_template, request, logging, url_for, redirect, flash,jsonify,g
+import sys
 from werkzeug.exceptions import abort
 import sqlite3
 import logging
@@ -22,23 +23,27 @@ def get_db_connection():
 
 # Function to get a post using its ID
 def get_post(post_id):
-    connection = get_db_connection()
-    post = connection.execute('SELECT * FROM posts WHERE id = ?',
+    try:
+        connection = get_db_connection()
+        post = connection.execute('SELECT * FROM posts WHERE id = ?',
                         (post_id,)).fetchone()
-    connection.close()
-    return post
+        return post
+    finally:
+        connection.close
 
 
 # Define the main route of the web application 
 @app.route('/')
 def index():
-    app.logger.info("Getting DB Connection")
-    connection = get_db_connection()
-    app.logger.info("Got DB Connection")
-    posts = connection.execute('SELECT * FROM posts').fetchall()
-    app.logger.info("Number of posts %s", len(posts))
-    connection.close()
-    return render_template('index.html', posts=posts)
+    try:
+        app.logger.info("Getting DB Connection")
+        connection = get_db_connection()
+        app.logger.info("Got DB Connection")
+        posts = connection.execute('SELECT * FROM posts').fetchall()
+        app.logger.info("Number of posts %s", len(posts))
+        return render_template('index.html', posts=posts)
+    finally:
+        connection.close()
 
 # Define how each individual article is rendered 
 # If the post ID is not found a 404 page is shown
@@ -68,13 +73,15 @@ def create():
         if not title:
             flash('Title is required!')
         else:
-            connection = get_db_connection()
-            connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
-                         (title, content))
-            connection.commit()
-            connection.close()
-            app.logger.info("A new article '%s' created successfully", title)
-            return redirect(url_for('index'))
+            try:
+                connection = get_db_connection()
+                connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
+                            (title, content))
+                connection.commit()
+                app.logger.info("A new article '%s' created successfully", title)
+                return redirect(url_for('index'))
+            finally:
+                connection.close()
 
     return render_template('create.html')
 
@@ -83,29 +90,35 @@ def create():
 def healthz():
     try:
         connection = get_db_connection()
-        curzor = connection.cursor()
-        curzor.execute("SELECT count(title) from posts")
-        result = curzor.fetchone()
-        number_posts = result[0]
-        connection.close
-        return jsonify("result","OK - healthy")
+        return jsonify({"result" : "OK - healthy"})
     except Exception:
-        return jsonify("result","ERROR - unhealthy"),500 
+        return jsonify({"result":"ERROR - unhealthy"}),500 
+    finally:
+        connection.close
 
 #Define the metrics endpoint
 @app.route("/metrics")
 def metrics():
-    connection = get_db_connection()
-    curzor = connection.cursor()
-    curzor.execute("SELECT count(title) from posts")
-    result = curzor.fetchone()
-    number_posts = result[0]
-    app.logger.info("Count of pozts - %s", number_posts)
-    connection.close
-    return jsonify(db_connection_count=_count, post_count=number_posts),200
+    try:
+        connection = get_db_connection()
+        curzor = connection.cursor()
+        curzor.execute("SELECT count(title) from posts")
+        result = curzor.fetchone()
+        number_posts = result[0]
+        app.logger.info("Count of pozts - %s", number_posts)
+        return jsonify(db_connection_count=_count, post_count=number_posts),200
+    finally:
+            connection.close
 
 
 # start the application on port 3111
 if __name__ == "__main__":
-    logging.basicConfig(level= logging.DEBUG)
-    app.run(host='0.0.0.0', port='3111')
+   # set logger to handle STDOUT and STDERR
+   stdout_handler =  logging.StreamHandler(sys.stdout) 
+   stderr_handler =  logging.StreamHandler(sys.stderr)
+   handlers = [stderr_handler, stdout_handler]
+   # format output
+   format_output =' %(asctime)s - %(message)s'
+
+   logging.basicConfig(format=format_output, level=logging.DEBUG, handlers=handlers)    
+   app.run(host='0.0.0.0', port='3111')
