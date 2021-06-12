@@ -20,7 +20,7 @@ spec:
         app: techtrends
     spec:
       containers:
-      - image: srimant/{{.Values.image.repository}}:{{.Values.image.tag}}
+      - image: {{.Values.image.user}}/{{.Values.image.repository}}:{{.Values.image.tag}}
         imagePullPolicy: {{.Values.image.pullPolicy}}
         name: techtrends
         resources:
@@ -31,8 +31,8 @@ spec:
         livenessProbe:
           httpGet:
             path: {{.Values.livenessProbe.path}}
-            port: {{ .Values.containerPort }} 
+            port: {{.Values.livenessProbe.port }} 
         readinessProbe:
           httpGet:
             path: {{.Values.readinessProbe.path}}
-            port: {{ .Values.containerPort }} 
+            port: {{ .Values.readinessProbe.port }} 

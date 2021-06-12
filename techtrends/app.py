@@ -4,20 +4,17 @@ import sys
 from werkzeug.exceptions import abort
 import sqlite3
 import logging
-#keep count of all connections created till now
-_count = 0
 
 # Define the Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
-
+app.config['COUNTER'] = 0
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
-    global _count
     connection = sqlite3.connect('database.db')
-    _count = _count + 1
+    app.config['COUNTER'] = app.config['COUNTER'] + 1
     connection.row_factory = sqlite3.Row
     return connection
 
@@ -106,7 +103,7 @@ def metrics():
         result = curzor.fetchone()
         number_posts = result[0]
         app.logger.info("Count of pozts - %s", number_posts)
-        return jsonify(db_connection_count=_count, post_count=number_posts),200
+        return jsonify(db_connection_count=app.config['COUNTER'], post_count=number_posts),200
     finally:
             connection.close
 

@@ -4,6 +4,7 @@ metadata:
   labels:
     app: techtrends
   name: techtrends
+  namespace: sandbox
 spec:
   replicas: 1
   selector:
@@ -20,7 +21,7 @@ spec:
         app: techtrends
     spec:
       containers:
-      - image: srmisra/techtrends:latest
+      - image: srimant/techtrends:latest
         imagePullPolicy: IfNotPresent
         name: techtrends
         resources:
